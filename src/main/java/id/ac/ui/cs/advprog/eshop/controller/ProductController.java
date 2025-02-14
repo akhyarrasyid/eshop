@@ -1,13 +1,20 @@
 package id.ac.ui.cs.advprog.eshop.controller;
 
-import id.ac.ui.cs.advprog.eshop.model.Product;
-import id.ac.ui.cs.advprog.eshop.service.ProductService;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.List;
+import id.ac.ui.cs.advprog.eshop.model.Product;
+import id.ac.ui.cs.advprog.eshop.service.ProductService;
+import jakarta.validation.Valid;
 
 @Controller
 @RequestMapping("/product")
@@ -24,9 +31,15 @@ public class ProductController {
     }
 
     @PostMapping("/create")
-    public String createProductPost(@ModelAttribute Product product, Model model) {
+    public String createProductPost(@ModelAttribute("product") @Valid Product product, 
+                                    BindingResult result, 
+                                    Model model) {
+        if (result.hasErrors()) {
+            model.addAttribute("product", product);
+            return "createProduct";
+        }
         service.create(product);
-        return "redirect:list";
+        return "redirect:/product/list";
     }
 
     @GetMapping("/edit/{productId}")
@@ -40,10 +53,18 @@ public class ProductController {
     }
 
     @PostMapping("/edit/{productId}")
-    public String editProductPost(@PathVariable("productId") String productId, @ModelAttribute Product product, Model model) {
-        service.edit(product.getProductId(), product);
+    public String editProductPost(@PathVariable("productId") String productId,
+                                  @ModelAttribute("product") @Valid Product product,
+                                  BindingResult result, 
+                                  Model model) {
+        if (result.hasErrors()) {
+            model.addAttribute("product", product);
+            return "editProduct";
+        }
+        service.edit(productId, product);
         return "redirect:/product/list";
     }
+    
 
     @GetMapping("/delete/{id}")
     public String deleteProduct(@PathVariable("id") String productId) {

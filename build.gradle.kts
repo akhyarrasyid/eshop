@@ -31,6 +31,7 @@ val junitJupiterVersion = "5.9.1"
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
 	implementation("org.springframework.boot:spring-boot-starter-web")
+	implementation("org.springframework.boot:spring-boot-starter-validation")
 	compileOnly("org.projectlombok:lombok")
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
@@ -51,6 +52,7 @@ tasks.register<Test>("unitTest") {
 	filter {
 		excludeTestsMatching("*FunctionalTest")
 	}
+}
 
 tasks.register<Test>("functionalTest") {
     description = "Runs functional tests."
@@ -58,6 +60,7 @@ tasks.register<Test>("functionalTest") {
     filter {
         includeTestsMatching("*FunctionalTest")
     }
+}
 	
 tasks.withType<Test>().configureEach {
 	useJUnitPlatform()
