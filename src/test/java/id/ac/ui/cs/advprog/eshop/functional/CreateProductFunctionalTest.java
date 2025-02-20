@@ -47,7 +47,7 @@ class CreateProductFunctionalTest {
     }
 
     @Test
-    void testCreateProduct_Success() {
+    void testCreateProductSuccess() {
         driver.get(baseUrl + "/product/create");
 
         WebElement nameInput = driver.findElement(By.id("nameInput"));

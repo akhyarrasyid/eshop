@@ -56,7 +56,7 @@ class ProductControllerTest {
     }
 
     @Test
-    void testCreateProductPost_Success() {
+    void testCreateProductPostSuccess() {
         // Arrange
         when(bindingResult.hasErrors()).thenReturn(false);
         when(productService.create(product)).thenReturn(product);
@@ -70,7 +70,7 @@ class ProductControllerTest {
     }
 
     @Test
-    void testCreateProductPost_ValidationError() {
+    void testCreateProductPostValidationError() {
         // Arrange
         when(bindingResult.hasErrors()).thenReturn(true);
 
@@ -83,7 +83,7 @@ class ProductControllerTest {
     }
 
     @Test
-    void testEditProductPage_ProductExists() {
+    void testEditProductPageProductExists() {
         // Arrange
         when(productService.findById(PRODUCT_ID)).thenReturn(product);
 
@@ -96,7 +96,7 @@ class ProductControllerTest {
     }
 
     @Test
-    void testEditProductPage_ProductNotFound() {
+    void testEditProductPageProductNotFound() {
         // Arrange
         when(productService.findById(PRODUCT_ID)).thenReturn(null);
 
@@ -108,7 +108,7 @@ class ProductControllerTest {
     }
 
     @Test
-    void testEditProductPost_Success() {
+    void testEditProductPostSuccess() {
         // Arrange
         when(bindingResult.hasErrors()).thenReturn(false);
         when(productService.edit(PRODUCT_ID, product)).thenReturn(product);
@@ -122,7 +122,7 @@ class ProductControllerTest {
     }
 
     @Test
-    void testEditProductPost_ValidationError() {
+    void testEditProductPostValidationError() {
         // Arrange
         when(bindingResult.hasErrors()).thenReturn(true);
 
