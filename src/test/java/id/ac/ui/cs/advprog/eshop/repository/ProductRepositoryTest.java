@@ -64,7 +64,7 @@ class ProductRepositoryTest {
     }
 
     @Test
-    void testEditProduct_Success() {
+    void testEditProductSuccess() {
         // Arrange
         productRepository.create(product);
         Product updatedProduct = new Product();
@@ -82,7 +82,7 @@ class ProductRepositoryTest {
     }
 
     @Test
-    void testEditProduct_NotFound() {
+    void testEditProductNotFound() {
         // Arrange
         Product updatedProduct = new Product();
         updatedProduct.setProductName("Updated Name");
@@ -108,7 +108,7 @@ class ProductRepositoryTest {
     }
 
     @Test
-    void testDeleteProduct_NonExistent() {
+    void testDeleteProductNonExistent() {
         // Arrange
         productRepository.create(product);
 
@@ -118,7 +118,7 @@ class ProductRepositoryTest {
     }
 
     @Test
-    void testFindById_Found() {
+    void testFindByIdFound() {
         // Arrange
         productRepository.create(product);
 
@@ -133,7 +133,7 @@ class ProductRepositoryTest {
     }
 
     @Test
-    void testFindById_NotFound() {
+    void testFindByIdNotFound() {
         // Act
         Product result = productRepository.findById("non-existent-id");
 
