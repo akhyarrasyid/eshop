@@ -14,11 +14,6 @@ import org.springframework.validation.BindingResult;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.*;
-
 @ExtendWith(MockitoExtension.class)
 class ProductControllerTest {
 
@@ -51,87 +46,89 @@ class ProductControllerTest {
         String viewName = productController.createProductPage(model);
 
         // Assert
-        verify(model).addAttribute(eq("product"), any(Product.class));
-        assertEquals("createProduct", viewName);
+        org.mockito.Mockito.verify(model).addAttribute(
+                org.mockito.ArgumentMatchers.eq("product"),
+                org.mockito.ArgumentMatchers.any(Product.class));
+        org.junit.jupiter.api.Assertions.assertEquals("createProduct", viewName);
     }
 
     @Test
     void testCreateProductPostSuccess() {
         // Arrange
-        when(bindingResult.hasErrors()).thenReturn(false);
-        when(productService.create(product)).thenReturn(product);
+        org.mockito.Mockito.when(bindingResult.hasErrors()).thenReturn(false);
+        org.mockito.Mockito.when(productService.create(product)).thenReturn(product);
 
         // Act
         String viewName = productController.createProductPost(product, bindingResult, model);
 
         // Assert
-        verify(productService).create(product);
-        assertEquals("redirect:/product/list", viewName);
+        org.mockito.Mockito.verify(productService).create(product);
+        org.junit.jupiter.api.Assertions.assertEquals("redirect:/product/list", viewName);
     }
 
     @Test
     void testCreateProductPostValidationError() {
         // Arrange
-        when(bindingResult.hasErrors()).thenReturn(true);
+        org.mockito.Mockito.when(bindingResult.hasErrors()).thenReturn(true);
 
         // Act
         String viewName = productController.createProductPost(product, bindingResult, model);
 
         // Assert
-        verify(model).addAttribute("product", product);
-        assertEquals("createProduct", viewName);
+        org.mockito.Mockito.verify(model).addAttribute("product", product);
+        org.junit.jupiter.api.Assertions.assertEquals("createProduct", viewName);
     }
 
     @Test
     void testEditProductPageProductExists() {
         // Arrange
-        when(productService.findById(PRODUCT_ID)).thenReturn(product);
+        org.mockito.Mockito.when(productService.findById(PRODUCT_ID)).thenReturn(product);
 
         // Act
         String viewName = productController.editProductPage(PRODUCT_ID, model);
 
         // Assert
-        verify(model).addAttribute("product", product);
-        assertEquals("editProduct", viewName);
+        org.mockito.Mockito.verify(model).addAttribute("product", product);
+        org.junit.jupiter.api.Assertions.assertEquals("editProduct", viewName);
     }
 
     @Test
     void testEditProductPageProductNotFound() {
         // Arrange
-        when(productService.findById(PRODUCT_ID)).thenReturn(null);
+        org.mockito.Mockito.when(productService.findById(PRODUCT_ID)).thenReturn(null);
 
         // Act
         String viewName = productController.editProductPage(PRODUCT_ID, model);
 
         // Assert
-        assertEquals("redirect:/product/list", viewName);
+        org.junit.jupiter.api.Assertions.assertEquals("redirect:/product/list", viewName);
     }
 
     @Test
     void testEditProductPostSuccess() {
         // Arrange
-        when(bindingResult.hasErrors()).thenReturn(false);
-        when(productService.edit(PRODUCT_ID, product)).thenReturn(product);
+        org.mockito.Mockito.when(bindingResult.hasErrors()).thenReturn(false);
+        org.mockito.Mockito.when(productService.edit(PRODUCT_ID, product)).thenReturn(product);
 
         // Act
         String viewName = productController.editProductPost(PRODUCT_ID, product, bindingResult, model);
 
         // Assert
-        verify(productService).edit(PRODUCT_ID, product);
-        assertEquals("redirect:/product/list", viewName);
+        org.mockito.Mockito.verify(productService).edit(PRODUCT_ID, product);
+        org.junit.jupiter.api.Assertions.assertEquals("redirect:/product/list", viewName);
     }
 
     @Test
     void testEditProductPostValidationError() {
         // Arrange
-        when(bindingResult.hasErrors()).thenReturn(true);
+        org.mockito.Mockito.when(bindingResult.hasErrors()).thenReturn(true);
 
         // Act
         String viewName = productController.editProductPost(PRODUCT_ID, product, bindingResult, model);
 
         // Assert
-        verify(model).addAttribute("product", product);
-        assertEquals("editProduct", viewName);
+        org.mockito.Mockito.verify(model).addAttribute("product", product);
+        org.junit.jupiter.api.Assertions.assertEquals("editProduct", viewName);
     }
 
     @Test
@@ -140,8 +137,8 @@ class ProductControllerTest {
         String viewName = productController.deleteProduct(PRODUCT_ID);
 
         // Assert
-        verify(productService).delete(PRODUCT_ID);
-        assertEquals("redirect:/product/list", viewName);
+        org.mockito.Mockito.verify(productService).delete(PRODUCT_ID);
+        org.junit.jupiter.api.Assertions.assertEquals("redirect:/product/list", viewName);
     }
 
     @Test
@@ -149,13 +146,13 @@ class ProductControllerTest {
         // Arrange
         List<Product> productList = new ArrayList<>();
         productList.add(product);
-        when(productService.findAll()).thenReturn(productList);
+        org.mockito.Mockito.when(productService.findAll()).thenReturn(productList);
 
         // Act
         String viewName = productController.productListPage(model);
 
         // Assert
-        verify(model).addAttribute("products", productList);
-        assertEquals("productList", viewName);
+        org.mockito.Mockito.verify(model).addAttribute("products", productList);
+        org.junit.jupiter.api.Assertions.assertEquals("productList", viewName);
     }
 }

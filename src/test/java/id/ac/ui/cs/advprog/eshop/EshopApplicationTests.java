@@ -5,8 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-
 @SpringBootTest
 class EshopApplicationTests {
 
@@ -15,11 +13,11 @@ class EshopApplicationTests {
 
     @Test
     void contextLoads() {
-        assertNotNull(applicationContext);
+        org.junit.jupiter.api.Assertions.assertNotNull(applicationContext);
     }
 
     @Test
     void mainMethodLoads() {
-        EshopApplication.main(new String[] {});
+        EshopApplication.main(new String[]{});
     }
 }
