@@ -2,6 +2,11 @@
 - NPM     : 2306241682
 - Kelas   : Adpro - A
 
+### archive reflection🧑‍💻
+
+<details>
+<summary>📒 Module 1</summary>
+
 # Module 1: Coding Standard
 
 ## Reflection 1
@@ -41,10 +46,35 @@ What do you think about the cleanliness of the code of the new functional test s
 Setelah menulis rangkaian tes functional yang baru, saya mulai melihat beberapa masalah di kode pengujian saya. yang paling jelas saya sadari adalah duplikasi kode, karena saya menyalin prosedur penyiapan dan variabel contoh yang sama dari `CreateProductFunctionalTest`.java ke kelas uji baru. Ini jelas bertentangan dengan prinsip DRY (Don't Repeat Yourself). Misalnya, jika saya perlu mengubah cara pengaturan (seperti beralih dari Chrome ke Firefox), saya harus melakukannya di beberapa tempat. Hal ini tentu saja membuat pemeliharaan jadi lebih sulit dan meningkatkan kemungkinan terjadinya inkonsistensi.
 
 Membuat kelas Java yang sama dengan rangkaian tes fungsional utama bisa menurunkan kebersihan kode karena adanya duplikasi dan redundansi. Untuk mengatasinya, saya bisa membuat superclass yang berisi set up umum, lalu menggunakannya di dalam subclass yang membutuhkan pengaturan tersebut. Dengan cara ini, duplikasi dan redundansi kode yang bisa merusak kebersihan kode bisa dihindari.
+</details>
+<br>
 
+# Module 2: CI/CD & DevOps
 
+## Reflection
+> 1. List the code quality issue(s) that you fixed during the exercise and explain your strategy on fixing them.
 
+- Di awal, saya melakukan _refactor_ nama file seperti `CreateProduct.html` menjadi `createProduct.html`, `HomePage.html` menjadi `homePage.html`, dan seterusnya. Tujuannya agar lebih konsisten dalam penggunaan camel case di seluruh project.
+- Menambahkan izin yang sesuai untuk nge allow `./gradlew` nya buat di run di dalam `ci.yml` dengan tambahan berikut: 
+    ```yaml 
+    - name: Add gradlew permission
+      run: chmod +x gradlew
+    ```
+- Memperbaiki bagian upload artifact sesuai arahan asdos, karena versi 3 (v3) sudah tidak support di banyak kasus. dari yang awalnya:
+    ```yaml
+    uses: actions/upload-artifact@97a0fba1372883ab732affbe8f94b823f91727db # v3.pre.node20 
+    ```
+    Saya menggantinya menjadi:
+    ```yaml
+    uses: actions/upload-artifact@v4
+    ```
+- Memperbaiki nama method yang sebelumnya kurang sesuai dengan Java Naming Convention, misalnya dari get_product_list() menjadi getProductList(). Ini membantu meningkatkan keterbacaan kode dan mempermudah maintenance di masa depan.
+- Di Java, method dalam interface sudah public secara default, jadi saya menghapus modifier public dari method-method di `ProductService.java` agar lebih clean dan tidak redundan.
+- Saya juga mengupdate PMD action di GitHub Workflow ke ```pmd/pmd-github-action@v2``` agar menggunakan versi yang lebih baru dan stabil.
+- Di beberapa method, saya juga mencoba membersihkan import wildcard untuk mencegah potensi konflik penamaan dan ambiguitas.
 
+> 2. Look at your CI/CD workflows (GitHub)/pipelines (GitLab). Do you think the current implementation has met the definition of Continuous Integration and Continuous Deployment? Explain the reasons (minimum 3 sentences)!
 
+Menurut saya, proyek ini sudah memenuhi definisi CI/CD. Di sisi Continuous Integration, saya menggunakan GitHub Actions dengan workflow yang saya definisikan di dalam folder .github/workflows. Alur kerja ini secara otomatis akan terpicu setiap kali ada _push_ atau _pull_ request ke branch mana pun. Di dalam `ci.yml`, saya juga membuat proses otomatis untuk build dan unit testing. Untuk memastikan kualitas dan keamanan kode tetap terjaga, saya juga mengintegrasikan tools tambahan seperti `Scorecard` dan `PMD` yang akan mengevaluasi potensi masalah keamanan setiap ada perubahan kode. Menurut saya ini penting untuk mendeteksi masalah sejak dini sebelum kode masuk ke _production_.
 
-
+Di sisi Continuous Deployment, saya memilih menggunakan **Koyeb** sebagai _platform deployment_. Setiap kali ada _push_ atau _pull_ request ke branch main, Koyeb akan secara otomatis mengambil perubahan tersebut dan men-deploy versi terbaru dari aplikasi web saya. Proses otomatis ini sangat membantu karena saya tidak perlu melakukan _deployment_ manual, yang tentunya bisa memakan waktu dan rawan human error.  Hal ini juga bisa membuat saya bisa fokus pada pengembangan fitur tanpa terlalu khawatir dengan proses technical yang repetitif.
