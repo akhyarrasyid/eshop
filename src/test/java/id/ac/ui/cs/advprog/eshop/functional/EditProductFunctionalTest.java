@@ -32,7 +32,7 @@ public class EditProductFunctionalTest {
     }
 
     @Test
-    public void testEditProduct_isSuccessful(ChromeDriver driver) {
+    public void testEditProductisSuccessful(ChromeDriver driver) {
         driver.get(baseUrl + "/product/create");
         WebElement nameInput = driver.findElement(By.id("nameInput"));
         nameInput.sendKeys("Original Product");
@@ -72,7 +72,7 @@ public class EditProductFunctionalTest {
     }
 
     @Test
-    public void testEditProduct_negativeNonExistent(ChromeDriver driver) {
+    public void testEditProductNegativeNonExistent(ChromeDriver driver) {
         String fakeId = "non-existent-uuid";
         driver.get(baseUrl + "/product/edit/" + fakeId);
 
