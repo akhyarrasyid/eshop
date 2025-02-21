@@ -25,26 +25,19 @@ class ProductRepositoryTest {
 
     @Test
     void testCreateProduct() {
-        // Act
         Product result = productRepository.create(product);
-
-        // Assert
         assertEquals(product, result);
         assertNotNull(productRepository.findById(PRODUCT_ID));
     }
 
     @Test
     void testFindAllEmpty() {
-        // Act
         Iterator<Product> iterator = productRepository.findAll();
-
-        // Assert
         assertFalse(iterator.hasNext());
     }
 
     @Test
     void testFindAllWithProducts() {
-        // Arrange
         productRepository.create(product);
         Product secondProduct = new Product();
         secondProduct.setProductId("second-id");
@@ -83,49 +76,33 @@ class ProductRepositoryTest {
 
     @Test
     void testEditProductNotFound() {
-        // Arrange
         Product updatedProduct = new Product();
         updatedProduct.setProductName("Updated Name");
         updatedProduct.setProductQuantity(20);
 
-        // Act
         Product result = productRepository.edit("non-existent-id", updatedProduct);
-
-        // Assert
         assertNull(result);
     }
 
     @Test
     void testDeleteProduct() {
-        // Arrange
         productRepository.create(product);
-
-        // Act
         productRepository.delete(PRODUCT_ID);
-
-        // Assert
         assertNull(productRepository.findById(PRODUCT_ID));
     }
 
     @Test
     void testDeleteProductNonExistent() {
-        // Arrange
         productRepository.create(product);
-
-        // Act & Assert
         assertDoesNotThrow(() -> productRepository.delete("non-existent-id"));
         assertNotNull(productRepository.findById(PRODUCT_ID)); // Original product should still exist
     }
 
     @Test
     void testFindByIdFound() {
-        // Arrange
         productRepository.create(product);
-
-        // Act
         Product result = productRepository.findById(PRODUCT_ID);
 
-        // Assert
         assertNotNull(result);
         assertEquals(PRODUCT_ID, result.getProductId());
         assertEquals("Sample Product", result.getProductName());
@@ -134,10 +111,7 @@ class ProductRepositoryTest {
 
     @Test
     void testFindByIdNotFound() {
-        // Act
         Product result = productRepository.findById("non-existent-id");
-
-        // Assert
         assertNull(result);
     }
 }
