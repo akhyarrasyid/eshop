@@ -1,7 +1,8 @@
 package id.ac.ui.cs.advprog.eshop.functional;
 
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -57,8 +58,8 @@ class CreateProductFunctionalTest {
         quantityInput.sendKeys("10");
         submitButton.click();
 
-        Assertions.assertTrue(driver.getCurrentUrl().endsWith("/product/list"));
+        assertTrue(driver.getCurrentUrl().endsWith("/product/list"));
         WebElement productName = driver.findElement(By.xpath("//td[contains(text(), 'Test Product')]"));
-        Assertions.assertNotNull(productName);
+        assertNotNull(productName);
     }
 }

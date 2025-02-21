@@ -8,7 +8,10 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.ui.Model;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.Mockito.verifyNoInteractions;
 
 @ExtendWith(MockitoExtension.class)
 class HomePageControllerTest {
@@ -31,6 +34,8 @@ class HomePageControllerTest {
 
         // Assert
         assertEquals("homePage", viewName);
+        assertNotNull(viewName);
+        verifyNoInteractions(model);
     }
 
     @Test
@@ -40,5 +45,6 @@ class HomePageControllerTest {
 
         // Assert
         assertEquals("homePage", viewName);
+        assertNotNull(viewName);
     }
 }
