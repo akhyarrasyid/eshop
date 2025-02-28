@@ -3,6 +3,7 @@ package id.ac.ui.cs.advprog.eshop.service;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,8 +18,11 @@ public class CarServiceImpl implements CarService {
 
     @Override
     public Car create(Car car) {
-        carRepository.create(car);
-        return car;
+        if (car.getCarId() == null || car.getCarId().isEmpty()) {
+            car.setCarId(UUID.randomUUID().toString());
+        }
+        validateCar(car);
+        return carRepository.create(car);
     }
 
     @Override
@@ -43,5 +47,14 @@ public class CarServiceImpl implements CarService {
     @Override
     public void deleteCarById(String carId) {
         carRepository.delete(carId);
+    }
+
+    private void validateCar(Car car) {
+        if (car.getCarName() == null || car.getCarName().trim().isEmpty() || car.getCarColor() == null || car.getCarColor().trim().isEmpty()) {
+            throw new IllegalArgumentException("Car name and color cannot be empty");
+        }
+        if (car.getCarQuantity() < 0) {
+            throw new IllegalArgumentException("Car quantity cannot be negative");
+        }
     }
 }
