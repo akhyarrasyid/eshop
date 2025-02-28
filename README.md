@@ -1,3 +1,5 @@
+### Advance programming
+
 - Nama    : Akhyar Rasyid Asy syifa
 - NPM     : 2306241682
 - Kelas   : Adpro - A
@@ -49,6 +51,9 @@ Membuat kelas Java yang sama dengan rangkaian tes fungsional utama bisa menurunk
 </details>
 <br>
 
+<details>
+<summary>📒 Module 2</summary>
+
 # Module 2: CI/CD & DevOps
 
 ## Reflection
@@ -78,3 +83,33 @@ Membuat kelas Java yang sama dengan rangkaian tes fungsional utama bisa menurunk
 Menurut saya, proyek ini sudah memenuhi definisi CI/CD. Di sisi Continuous Integration, saya menggunakan GitHub Actions dengan workflow yang saya definisikan di dalam folder .github/workflows. Alur kerja ini secara otomatis akan terpicu setiap kali ada _push_ atau _pull_ request ke branch mana pun. Di dalam `ci.yml`, saya juga membuat proses otomatis untuk build dan unit testing. Untuk memastikan kualitas dan keamanan kode tetap terjaga, saya juga mengintegrasikan tools tambahan seperti `Scorecard` dan `PMD` yang akan mengevaluasi potensi masalah keamanan setiap ada perubahan kode. Menurut saya ini penting untuk mendeteksi masalah sejak dini sebelum kode masuk ke _production_.
 
 Di sisi Continuous Deployment, saya memilih menggunakan **Koyeb** sebagai _platform deployment_. Setiap kali ada _push_ atau _pull_ request ke branch main, Koyeb akan secara otomatis mengambil perubahan tersebut dan men-deploy versi terbaru dari aplikasi web saya. Proses otomatis ini sangat membantu karena saya tidak perlu melakukan _deployment_ manual, yang tentunya bisa memakan waktu dan rawan human error.  Hal ini juga bisa membuat saya bisa fokus pada pengembangan fitur tanpa terlalu khawatir dengan proses technical yang repetitif.
+
+</details>
+
+# Module 3: Maintainability & OO Principles
+
+## Reflection
+### 1. List the code quality issue(s) that you fixed during the exercise and explain your strategy on fixing them.
+Dalam tutorial modul ini, saya menerapkan prinsip SOLID untuk memastikan bahwa kode lebih terstruktur, mudah dipelihara, dan fleksibel untuk dikembangkan di masa depan. Berikut adalah prinsip-prinsip yang saya gunakan:
+
+**Single Responsibility Principle (SRP)**.
+Saya memisahkan CarController dari `ProductController` karena masing-masing memiliki tanggung jawab berbeda. `CarController` hanya mengelola car, sementara `ProductController` mengelola produk in general. Selain itu, saya juga memisahkan logika ID generation ke dalam method `generateId()` di repository agar lebih terorganisir.
+
+**Open-Closed Principle (OCP)**.
+Jika ada perubahan pada Car, tidak akan memengaruhi Product. Lalu jika ada fitur baru untuk Car, cukup modifikasi `CarController` saja tanpa menyentuh `ProductController`.
+
+**Liskov Substitution Principle (LSP)**.
+Saya memisahkan `CarController` dari `ProductController`. Sebelumnya, `CarController` merupakan subclass dari `ProductController`, padahal keduanya memiliki tanggung jawab yang berbeda. Hal ini bertentangan dengan LSP karena CarController tidak sepenuhnya bisa menggantikan ProductController tanpa mengubah perilaku yang diharapkan. 
+
+**Interface Segregation Principle (ISP)**. 
+Saya memisahkan `CarService` sama `ProductService`, di mana masing-masing memiliki tanggung jawabnya sendiri dalam mengelola operasi CRUD (Create, Read, Update, Delete). Kedua service ini berdiri sendiri tanpa saling bergantung, sehingga perubahan pada satu service tidak akan memengaruhi yang lain. 
+
+**Dependency Inversion Principle (DIP)**.
+Saya mengganti dependensi `CarController` dari `CarServiceImpl` menjadi `CarService`. Dengan cara ini, `CarController`tidak bergantung pada implementasi konkret, tapi pada interface yang lebih fleksibel. 
+
+### 2. Explain the advantages of applying SOLID principles to your project with examples.
+Dengan menerapkan SOLID, code bakal menjadi lebih terstruktur, mudah dikelola, dan fleksibel untuk dikembangkan. Dalam case saya misal, dengan memisahkan `CarController` dari `ProductController`, setiap perubahan atau penambahan fitur pada car tidak akan memengaruhi produk lain. Selain itu, code yang lebih modular dan memiliki tanggung jawab tunggal membuatnya lebih mudah dibaca, diuji, serta meminimalkan risiko bug akibat perubahan di satu bagian code yang dapat berdampak ke bagian lain.
+
+### 3. Explain the disadvantages of not applying SOLID principles to your project with examples.
+
+Tanpa menerapkan prinsip SOLID, saya akan menghadapi banyak kesulitan dalam mengelola code dan meningkatkan risiko error. Jika `CarController` tetap bergantung pada `ProductController`, setiap perubahan kecil pada produk bisa berdampak pada mobil, yang justru menghambat pengembangan. Selain itu, tanpa abstraksi seperti `CarService`, setiap kali saya mengubah implementasi service, saya harus menyesuaikan banyak bagian code lain, yang membuat segalanya semakin kompleks dan rentan terhadap bug. Kurangnya modularitas juga membuat pengujian menjadi sulit, karena saya tidak bisa melakukan unittest tanpa bergantung pada implementasi konkret. Akibatnya, proyek saya akan menjadi sulit diperluas, tidak fleksibel terhadap perubahan, dan bakal jauh lebih sulit dikelola dalam jangka panjang.
