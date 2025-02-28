@@ -81,7 +81,7 @@ class CarRepositoryTest {
     }
 
     @Test
-    void testFindById_Found() {
+    void testFindByIdFound() {
         Car car = new Car();
         car.setCarName("Toyota");
         car.setCarColor("Red");
@@ -99,7 +99,7 @@ class CarRepositoryTest {
     }
 
     @Test
-    void testFindById_NotFound() {
+    void testFindByIdNotFound() {
         Car car1 = new Car();
         car1.setCarName("Toyota");
         car1.setCarColor("Red");
@@ -118,14 +118,14 @@ class CarRepositoryTest {
     }
 
     @Test
-    void testFindById_EmptyRepository() {
+    void testFindByIdEmptyRepository() {
         Car foundCar = carRepository.findById("any-id");
         
         assertNull(foundCar);
     }
 
     @Test
-    void testFindById_MultipleIteration() {
+    void testFindByIdMultipleIteration() {
         Car car1 = new Car();
         car1.setCarId("id-1");
         car1.setCarName("Toyota");
@@ -144,7 +144,7 @@ class CarRepositoryTest {
     }
 
     @Test
-    void testUpdate_Success() {
+    void testUpdateSuccess() {
         Car car = new Car();
         car.setCarName("Toyota");
         car.setCarColor("Red");
@@ -172,7 +172,7 @@ class CarRepositoryTest {
     }
 
     @Test
-    void testUpdate_CarNotFound() {
+    void testUpdateCarNotFound() {
         Car updatedCar = new Car();
         updatedCar.setCarName("Toyota Updated");
         updatedCar.setCarColor("Blue");
@@ -184,7 +184,7 @@ class CarRepositoryTest {
     }
 
     @Test
-    void testDelete_Success() {
+    void testDeleteSuccess() {
         Car car = new Car();
         car.setCarName("Toyota");
         car.setCarColor("Red");
@@ -200,7 +200,7 @@ class CarRepositoryTest {
     }
 
     @Test
-    void testDelete_CarNotFound() {
+    void testDeleteCarNotFound() {
         Car car = new Car();
         car.setCarName("Toyota");
         car.setCarColor("Red");
