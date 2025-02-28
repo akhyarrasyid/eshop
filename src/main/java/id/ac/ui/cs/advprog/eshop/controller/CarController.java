@@ -10,13 +10,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import id.ac.ui.cs.advprog.eshop.model.Car;
-import id.ac.ui.cs.advprog.eshop.service.CarServiceImpl;
+import id.ac.ui.cs.advprog.eshop.service.CarService;
 
 @Controller
 @RequestMapping("/car")
 class CarController extends ProductController {
     @Autowired
-    private CarServiceImpl carService;
+        private CarService carService;
 
     @GetMapping("/createCar")
     public String createCarPage (Model model) {
