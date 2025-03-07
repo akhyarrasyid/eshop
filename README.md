@@ -49,7 +49,6 @@ Setelah menulis rangkaian tes functional yang baru, saya mulai melihat beberapa 
 
 Membuat kelas Java yang sama dengan rangkaian tes fungsional utama bisa menurunkan kebersihan kode karena adanya duplikasi dan redundansi. Untuk mengatasinya, saya bisa membuat superclass yang berisi set up umum, lalu menggunakannya di dalam subclass yang membutuhkan pengaturan tersebut. Dengan cara ini, duplikasi dan redundansi kode yang bisa merusak kebersihan kode bisa dihindari.
 </details>
-<br>
 
 <details>
 <summary>📒 Module 2</summary>
@@ -86,6 +85,9 @@ Di sisi Continuous Deployment, saya memilih menggunakan **Koyeb** sebagai _platf
 
 </details>
 
+<details>
+<summary>📒 Module 3</summary>
+    
 # Module 3: Maintainability & OO Principles
 
 ## Reflection
@@ -113,3 +115,28 @@ Dengan menerapkan SOLID, code bakal menjadi lebih terstruktur, mudah dikelola, d
 ### 3. Explain the disadvantages of not applying SOLID principles to your project with examples.
 
 Tanpa menerapkan prinsip SOLID, saya akan menghadapi banyak kesulitan dalam mengelola code dan meningkatkan risiko error. Jika `CarController` tetap bergantung pada `ProductController`, setiap perubahan kecil pada produk bisa berdampak pada mobil, yang justru menghambat pengembangan. Selain itu, tanpa abstraksi seperti `CarService`, setiap kali saya mengubah implementasi service, saya harus menyesuaikan banyak bagian code lain, yang membuat segalanya semakin kompleks dan rentan terhadap bug. Kurangnya modularitas juga membuat pengujian menjadi sulit, karena saya tidak bisa melakukan unittest tanpa bergantung pada implementasi konkret. Akibatnya, proyek saya akan menjadi sulit diperluas, tidak fleksibel terhadap perubahan, dan bakal jauh lebih sulit dikelola dalam jangka panjang.
+
+</details>
+
+# Module 4: Test-Driven Development & Refactoring
+
+## Reflection
+> 1. Reflect based on Percival (2017) proposed self-reflective questions (in “Principles and Best Practice of Testing” submodule, chapter “Evaluating Your Testing Objectives”), whether this TDD flow is useful enough for you or not. If not, explain things that you need to do next time you make more tests.
+
+Menerapkan TDD dalam pengembangan kode sangat membantu saya dalam memahami kegunaan sebuah kode serta mendefinisikan perilaku yang diharapkan dengan lebih jelas. Dengan menulis pengujian terlebih dahulu, saya jadi lebih mudah memastikan bahwa setiap bagian kode memiliki tujuan yang spesifik. Selain itu, ketika setelah pengimplementasian sebuah class masih ada pengujian yang gagal, saya justru merasa bahwa TDD bekerja sebagaimana mestinya, karena kegagalan tersebut menunjukkan bagian kode yang masih perlu diperbaiki. Namun, saya juga mengalami beberapa tantangan dalam menerapkan TDD. Salah satunya adalah ada beberapa _case_ yang terlewat dalam pengujian saat saya mengimplementasikan suatu class. Hal ini membuat saya sadar bahwa cakupan testcase awal saya ternyata masih perlu diperluas agar lebih menyeluruh. Selain itu, karena saya masih cukup baru dalam menggunakan TDD dan belum banyak terbiasa dengan unit testing sebelumnya, saya sering kesulitan dalam merancang desain pengujian yang baik.
+
+> 2. You have created unit tests in Tutorial. Now reflect whether your tests have successfully followed F.I.R.S.T. principle or not. If not, explain things that you need to do the next time you create more tests.
+
+Dalam kode saya beberapa prinsip dari F.I.R.S.T. sudah saya implementasikan dengan baik dan sebagian belum dapat saya implementasikan. 
+- **Fast (F)**.
+  sudah saya implementasikan karena dalam test saya, saya hanya mengandalkan memori dan tidak menggunakan dependencies eksternal yang dapat memperlambat jalannya program.
+- **Independent (I)**.
+  berhasil saya implementasikan via `@BeforeEach` yang membuat satu tests dengan tests lain bersih dan tidak tergantung satu sama lain.
+- **Repeatable (R)**.
+  saya implementasikan dengan berhasil menjalankan tests baik di lokal maupun di bagian CI (Continuous Integration).
+- **Self-Validating**.
+  saya implementasikan melalui test-test assertion (`assertThrows`, `assertNull`, `assertEquals`) yang melakukan validasi ulang beberapa hal.
+- **Timely (T)**.
+  Terakhir, Timely (T) saya implementasikan melalui pembuatan testing yang saya lakukan terlebih dahulu lalu mengimplementasikan class nya. Lalu tests saya juga sudah meng-cover semua kemungkinan error, results, happy paths, dan unhappy paths.
+
+_Overall_, saya merasa sudah cukup baik dalam menerapkan prinsip F.I.R.S.T. dalam unit testing yang saya buat. Saya berusaha memastikan bahwa setiap pengujian berjalan secara independen dan hasilnya yang dapat diandalkan buat bikin class nantinya. Namun, ada beberapa hal yang masih perlu saya tingkatkan agar penerapan prinsip ini lebih optimal. Salah satu hal yang perlu saya perbaiki adalah memastikan bahwa unit testing yang saya buat benar-benar mencakup seluruh kode, termasuk berbagai edge-case yang mungkin terjadi.
