@@ -20,7 +20,7 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Override
     public Payment addPayment(Order order, String method, Map<String, String> paymentData) {
-
+        
     }
 
     @Override
@@ -35,6 +35,18 @@ public class PaymentServiceImpl implements PaymentService {
     
     @Override
     public Payment setStatus(Payment payment, String status) {
+
+    }
+
+    private String determineInitialStatus(String method, Map<String, String> paymentData) {
+
+    }
+
+    boolean isValidVoucherCode(String voucherCode) {
+
+    }
+
+    boolean isValidBankTransferData(Map<String, String> paymentData) {
 
     }
 }
